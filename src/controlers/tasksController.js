@@ -6,8 +6,8 @@ const getAll = async (req, res)=>{
 }
 
 const createPacient = async(req, res)=>{
-  const createdPacient = await taskModel.createPacient(req.body);
-  return res.status(201).json(createdPacient);
+    const createdPacient = await taskModel.createPacient(req.body);
+    return res.status(201).json(createdPacient);
 }
 
 module.exports={

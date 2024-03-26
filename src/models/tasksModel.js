@@ -7,13 +7,13 @@ const getAll = async ()=>{
 }
 
 const createPacient = async (paciente)=>{
-  const { nome, email, telefone } = paciente;
 
-  const query = "INSERT INTO Paciente(nome, email, telefone) VALUES(?,?,?)";
+    const { nome, email, telefone} = paciente;
+    const query = "INSERT INTO Paciente(nome, email, telefone) VALUES(?,?,?)";
 
-  const [createdPacient] = await connection.execute(query,[nome,email,telefone]);
+    const [createdPacient] = await connection.execute(query,[nome,email,telefone]);
 
-  return createdPacient;
+    return {insertId:createdPacient.insertId};
 };
 
 module.exports = {
