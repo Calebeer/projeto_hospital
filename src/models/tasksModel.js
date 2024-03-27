@@ -14,11 +14,12 @@ const getAllDoctor = async ()=>{
 // HERE IS BEGIN CREATED THE PACIENT
 const createPacient = async (paciente) => {
     const { nome, email, telefone} = paciente;
-    const query = "INSERT INTO Paciente(nome, especialidade, email) VALUES(?,?,?)";
+    const query = "INSERT INTO Paciente(nome, email, telefone) VALUES(?,?,?)";
 
     const [createdPacient] = await connection.execute(query,[nome,email,telefone]);
+    const pacientComplete = await connection.execute('SELECT * FROM Paciente WHERE id=?', [createdPacient.insertId])
 
-    return {insertId:createdPacient.insertId};
+    return pacientComplete[0][0];
 };
 
 const createMedicalAppointment = async (pacient) => {

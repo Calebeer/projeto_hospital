@@ -1,15 +1,22 @@
-
-//  HERE IS BEING MADE THE VALIDATION OF BODY
+const { z } = require('zod')
+//  HERE WE ARE USING ZOD TO THE VALIDATION
 const validationBody = (req, res, next)=>{
-  const { body } = req;
-  if (body.telefone === undefined || body.nome === undefined ||  body.email === undefined) {
-    return res.status(400).json({ message: "O campo nome,email e telefone é obrigatório" });
-}
-if (body.telefone === '' || body.nome === '' ||  body.email === '') {
-  return res.status(400).json({ message: "vodce tem que digitrar" });
-}
-
-  next()
+  try{
+    const { body } = req;
+    const schema = z.object({
+      nome:z.string().min(1).max(255),
+      email:z.string().min(6).max(255).transform(arg => {
+        return arg.toLowerCase();
+      }),
+      telefone:z.string().min(8)
+    })
+    schema.parse(body)
+    next()
+  }
+  catch(err){
+    console.log(err);
+    return res.status(401).json({err})
+  }
 }
 
 module.exports = {
