@@ -1,16 +1,30 @@
 const taskModel = require('../models/tasksModel')
 
-const getAll = async (req, res)=>{
-  const tasks = await taskModel.getAll()
+// HERE WE GET THE PACIENTS
+const getAllPacient = async (req, res)=>{
+  const tasks = await taskModel.getAllPacient()
   return res.status(200).json(tasks)
 }
 
-const createPacient = async(req, res)=>{
+const getAllDoctor = async (req, res)=>{
+  const tasks = await taskModel.getAllDoctor()
+  return res.status(200).json(tasks)
+}
+
+//HERE IS BEGIN CREATED THE PACIENT
+const createPacient = async (req, res) => {
     const createdPacient = await taskModel.createPacient(req.body);
     return res.status(201).json(createdPacient);
 }
 
+const createMedicalAppointment = async (req, res) => {
+  const createdMedicalAppointment = await taskModel.createMedicalAppointment(req.body);
+  return res.status(201).json(createdMedicalAppointment)
+}
+
 module.exports={
-  getAll,
-  createPacient
+  getAllPacient,
+  createPacient,
+  getAllDoctor,
+  createMedicalAppointment
 }

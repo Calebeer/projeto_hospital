@@ -1,7 +1,7 @@
 const app = require('./app')
 require('dotenv').config();
 
-// AQUI ESTÁ SENDO CONFIGURADA A PORTA, NO CASO ESTÁ SENDO RODADO NA PORTA 3001
+// HERE IS BEGIN CONFIGURATED THE PORT
 const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
