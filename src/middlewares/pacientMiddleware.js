@@ -1,4 +1,8 @@
 const { z } = require('zod')
+const cpfValidator = require("cpf-validator")
+
+
+
 //  HERE WE ARE USING ZOD TO THE VALIDATION
 const validationBody = (req, res, next)=>{
   try{
@@ -8,7 +12,8 @@ const validationBody = (req, res, next)=>{
       email:z.string().min(6).max(255).transform(arg => {
         return arg.toLowerCase();
       }),
-      telefone:z.string().min(8)
+      telefone:z.string().min(8),
+      cpf:z.string().min(11).max(11),
     })
     schema.parse(body)
     next()

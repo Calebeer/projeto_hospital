@@ -19,7 +19,7 @@ const createPacient = async (req, res) => {
 
 const createMedicalAppointment = async (req, res) => {
   const createdMedicalAppointment = await taskModel.createMedicalAppointment(req.body);
-  return res.status(201).json(createdMedicalAppointment)
+  return res.status(201).json(createdMedicalAppointment);
 }
 
 module.exports={
