@@ -13,7 +13,9 @@ const validationBody = (req, res, next)=>{
         return arg.toLowerCase();
       }),
       telefone:z.string().min(8),
-      cpf:z.string().min(11).max(11),
+      cpf:z.string().refine(arg =>{
+        return cpfValidator.isValid(arg)
+      })
     })
     schema.parse(body)
     next()
