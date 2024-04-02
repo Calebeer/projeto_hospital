@@ -22,9 +22,23 @@ const createMedicalAppointment = async (req, res) => {
   return res.status(201).json(createdMedicalAppointment);
 }
 
+const deleteConsult = async (req, res) =>{
+  const { id } = req.params;
+
+  await taskModel.deleteConsult(id)
+  return res.status(204).json()
+}
+
+// const updateConsult = async (req, res) =>{
+//   const updateConsult = await taskModel.updateConsult(req.body);
+//   return res.status(201).json(updateConsult)
+// }
+
 module.exports={
   getAllPacient,
   createPacient,
   getAllDoctor,
-  createMedicalAppointment
+  createMedicalAppointment,
+  deleteConsult,
+  // updateConsult
 }

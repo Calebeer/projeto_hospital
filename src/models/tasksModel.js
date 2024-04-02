@@ -27,13 +27,26 @@ const createMedicalAppointment = async (pacient) => {
     const query = "INSERT INTO Consulta(medico_id, paciente_id, data_hora, diagnostico ) VALUES(?,?,?,?)";
 
     const [createdAppointment] = await connection.execute(query,[medico_id,paciente_id,data_hora, diagnostico]);
-
-    return {insertId:createdAppointment.insertId};
+    const createdAppointmentComplete = await connection.execute('SELECT * FROM Consulta WHERE id=?',[createdAppointment.insertId])
+    return createdAppointmentComplete[0][0];
 };
+
+const deleteConsult = async (id) => {
+  const removedConsult = await connection.execute("DELETE FROM Consulta WHERE id = ?", [id]);
+  return removedConsult;
+}
+
+// const updateConsult = async(id) =>{
+//   const updateConsult = await connection.execute("DELETE FROM Consulta WHERE id = ?", [id]);
+//   return updateConsult;
+// }
+
 
 module.exports = {
   getAllPacient,
   createPacient,
   getAllDoctor,
-  createMedicalAppointment
+  createMedicalAppointment,
+  deleteConsult,
+  // updateConsult
 };
