@@ -1,5 +1,6 @@
 const { z } = require('zod')
 const cpfValidator = require("cpf-validator")
+const taskModel = require('../models/tasksModel')
 
 
 
@@ -27,12 +28,27 @@ const validationBody = (req, res, next)=>{
   }
 }
 
-const teste = (req, res, next)=>{
-  const body  = req.body;
-  return body, next();
+const informationClient = async (req, res, next) => {
+  const { paciente_id } = req.body;
+  const [informationClient] =  await taskModel.informationClient(paciente_id);
+  console.log(informationClient[0].email, next());
 }
+
+const informationDoctor = async (req, res, next) => {
+  const { medico_id } = req.body;
+  const [informationDoctor] =  await taskModel.informationDoctor(medico_id);
+  console.log(informationDoctor[0].email, next());
+}
+
+// const informationDoctor = async (req, res, next) => {
+//   const { medico_id, paciente_id } = req.body;
+//   const [informationDoctor] =  await taskModel.informationClient(medico_id);
+//   console.log(informationDoctor[0].email, next());
+// }
 
 module.exports = {
   validationBody,
-  teste
+  informationClient,
+  informationDoctor
+  // informationDoctor
 }

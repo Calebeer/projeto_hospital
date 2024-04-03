@@ -8,7 +8,7 @@ const pacientMiddlewares = require('../src/middlewares/pacientMiddleware')
 router.get('/pacient', taskController.getAllPacient)
 router.post('/pacient',pacientMiddlewares.validationBody, taskController.createPacient)
 router.get('/doctor',taskController.getAllDoctor)
-router.post('/consulta', taskController.createMedicalAppointment)
+router.post('/consulta',pacientMiddlewares.informationClient, pacientMiddlewares.informationDoctor, taskController.createMedicalAppointment)
 router.delete('/consulta/:id',taskController.deleteConsult)
 
 module.exports = router;

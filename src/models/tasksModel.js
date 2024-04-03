@@ -41,10 +41,11 @@ const informationClient = async (id) => {
   return informationOfClient
 }
 
-const information = async (paciente) => {
-  const informationClient = await connection.execute("SELECT * FROM Paciente JOIN Consulta ON Paciente.id = Consulta.paciente_id WHERE Paciente.id = ?", [paciente])
-  return informationClient
+const informationDoctor = async (id) => {
+  const informationOfDoctor = await connection.execute("SELECT * FROM Medico WHERE id=?",[id]);
+  return informationOfDoctor
 }
+
 
 // const updateConsult = async(id) =>{
 //   const updateConsult = await connection.execute("DELETE FROM Consulta WHERE id = ?", [id]);
@@ -59,6 +60,6 @@ module.exports = {
   createMedicalAppointment,
   deleteConsult,
   informationClient,
-  information
+  informationDoctor
   // updateConsult
 };
