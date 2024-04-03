@@ -16,6 +16,7 @@ const validationBody = (req, res, next)=>{
       cpf:z.string().refine(arg =>{
         return cpfValidator.isValid(arg)
       })
+
     })
     schema.parse(body)
     next()
@@ -26,6 +27,12 @@ const validationBody = (req, res, next)=>{
   }
 }
 
+const teste = (req, res, next)=>{
+  const body  = req.body;
+  return body, next();
+}
+
 module.exports = {
-  validationBody
+  validationBody,
+  teste
 }

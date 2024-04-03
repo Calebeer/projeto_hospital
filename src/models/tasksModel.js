@@ -36,6 +36,16 @@ const deleteConsult = async (id) => {
   return removedConsult;
 }
 
+const informationClient = async (id) => {
+  const informationOfClient = await connection.execute("SELECT * FROM Paciente WHERE id=?",[id]);
+  return informationOfClient
+}
+
+const information = async (paciente) => {
+  const informationClient = await connection.execute("SELECT * FROM Paciente JOIN Consulta ON Paciente.id = Consulta.paciente_id WHERE Paciente.id = ?", [paciente])
+  return informationClient
+}
+
 // const updateConsult = async(id) =>{
 //   const updateConsult = await connection.execute("DELETE FROM Consulta WHERE id = ?", [id]);
 //   return updateConsult;
@@ -48,5 +58,7 @@ module.exports = {
   getAllDoctor,
   createMedicalAppointment,
   deleteConsult,
+  informationClient,
+  information
   // updateConsult
 };

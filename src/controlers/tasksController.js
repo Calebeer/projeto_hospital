@@ -18,8 +18,23 @@ const createPacient = async (req, res) => {
 }
 
 const createMedicalAppointment = async (req, res) => {
+  const dados = req.body;
+  const { medico_id, paciente_id } = req.body;
+  console.log(medico_id, paciente_id);
+
   const createdMedicalAppointment = await taskModel.createMedicalAppointment(req.body);
   return res.status(201).json(createdMedicalAppointment);
+}
+
+// const informationClient = async (req, res) => {
+//   const informationOfClient = await taskModel.
+//   return informationOfClient
+// }
+
+
+const mostrarBody = async(req, res) => {
+    const body = req.body
+    return console.log(body);
 }
 
 const deleteConsult = async (req, res) =>{
@@ -40,5 +55,6 @@ module.exports={
   getAllDoctor,
   createMedicalAppointment,
   deleteConsult,
+  mostrarBody
   // updateConsult
 }
