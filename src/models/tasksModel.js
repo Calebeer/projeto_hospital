@@ -37,14 +37,20 @@ const deleteConsult = async (id) => {
 }
 
 const informationClient = async (id) => {
-  const informationOfClient = await connection.execute("SELECT * FROM Paciente WHERE id=?",[id]);
-  return informationOfClient
+  const informationOfClient = await connection.execute("SELECT email FROM Paciente WHERE id=?",[id]);
+  console.log(informationOfClient);
 }
 
 const informationDoctor = async (id) => {
   const informationOfDoctor = await connection.execute("SELECT * FROM Medico WHERE id=?",[id]);
   return informationOfDoctor
 }
+
+const tudoAqui = async (id) =>{
+  const ollHereComplete = await connection.execute('SELECT * FROM Consulta WHERE id=?',[id])
+  console.log(ollHereComplete);
+}
+
 
 
 // const updateConsult = async(id) =>{
@@ -60,6 +66,7 @@ module.exports = {
   createMedicalAppointment,
   deleteConsult,
   informationClient,
-  informationDoctor
+  informationDoctor,
+  tudoAqui
   // updateConsult
 };

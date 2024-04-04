@@ -29,15 +29,17 @@ const validationBody = (req, res, next)=>{
 }
 
 const informationClient = async (req, res, next) => {
-  const { paciente_id } = req.body;
-  const [informationClient] =  await taskModel.informationClient(paciente_id);
-  console.log(informationClient[0].email, next());
+  const { paciente_id }  = req.body;
+  const informationClient =  await taskModel.informationClient(paciente_id);
+  // return informationClient[0].email, next();
+  // console.log(informationClient[0].email, next());
+  console.log(informationClient), next();
 }
 
 const informationDoctor = async (req, res, next) => {
   const { medico_id } = req.body;
   const [informationDoctor] =  await taskModel.informationDoctor(medico_id);
-  console.log(informationDoctor[0].email, next());
+  console.log(informationDoctor[0].email), next();
 }
 
 // const informationDoctor = async (req, res, next) => {
@@ -49,6 +51,6 @@ const informationDoctor = async (req, res, next) => {
 module.exports = {
   validationBody,
   informationClient,
-  informationDoctor
+  informationDoctor,
   // informationDoctor
 }
