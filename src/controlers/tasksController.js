@@ -1,4 +1,4 @@
-const { sendMail } = require('../models/email')
+const  {sendEmail}  = require('../models/email')
 const taskModel = require('../models/tasksModel')
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
@@ -16,29 +16,47 @@ const getAllDoctor = async (req, res)=>{
 
 //HERE IS BEGIN CREATED THE PACIENT
 const createPacient = async (req, res) => {
+  try {
     const createdPacient = await taskModel.createPacient(req.body);
     return res.status(201).json(createdPacient);
+  }catch(e) {
+    return res.status(404).json({error:e.message});
+  }
 }
 
 const createMedicalAppointment = async (req, res) => {
+
+  console.log('content', req.body);
+  const { medico_nome } = req.body;
+  // const [informationDoctor] =  await taskModel.informationDoctor(medico_id);
+  const [informationDoctor] =  await taskModel.getAllDoctor(medico_nome);
+  console.log(informationDoctor);
+  if(!informationDoctor) {
+    return res.status(404).json({error:"Médico nao encontrado."});
+  }
+  console.log('>', medico_nome);
+  console.log('body:', req.body);
+
   // 1-Inserir a consulta no banco
-  const createdMedicalAppointment = await taskModel.createMedicalAppointment(req.body);
+  const createdMedicalAppointment = await taskModel.createMedicalAppointment({
+    ...req.body,
+    medico_id: informationDoctor.id
+  });
 
   //2.1- pega email
-  const { medico_id } = req.body;
+  // const { medico_id } = req.body;
 
 
   // Pega o medico do banco usando o id passado na request
 
-  const [informationDoctor] =  await taskModel.informationDoctor(medico_id);
-  const email = informationDoctor[0].email
-  const nome = informationDoctor[0].nome
+  const email = informationDoctor.email
+  const nome = informationDoctor.nome
   const dateToIstring = createdMedicalAppointment.data_hora.toISOString();
   const hora = dateToIstring.slice(11, 16);
   const date = dateToIstring.slice(0, 10);
   // 2-Enviar um email para o médico contendo os adados da consulta
-  // sendEmail(email,nome, date, hora )
-console.log(createMedicalAppointment);
+  sendEmail(email,nome, date, hora )
+console.log(email,nome);
   // 3 - Retornar registro do jeito q está no banco
   return res.status(201).json(createdMedicalAppointment);
 }

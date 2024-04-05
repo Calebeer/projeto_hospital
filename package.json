@@ -18,6 +18,7 @@
     "sucrase": "^3.35.0"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "cpf-validator": "^1.0.1",
     "dayjs": "^1.11.10",
     "dotenv": "^16.4.5",

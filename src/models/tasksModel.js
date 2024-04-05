@@ -2,13 +2,13 @@
 const connection = require('./conection');
 
 const getAllPacient = async ()=>{
-  const [tasks] = await connection.execute('SELECT * FROM Paciente');
-  return tasks;
+  const [pacient] = await connection.execute('SELECT * FROM Paciente');
+  return pacient;
 }
 
 const getAllDoctor = async ()=>{
-  const [tasks] = await connection.execute('SELECT * FROM Medico');
-  return tasks;
+  const [doctor] = await connection.execute('SELECT * FROM Medico');
+  return doctor;
 }
 
 // HERE IS BEGIN CREATED THE PACIENT
@@ -46,6 +46,17 @@ const informationDoctor = async (id) => {
   return informationOfDoctor
 }
 
+const getInformationDoctorUsingName = async (nome) => {
+  nome = "carlos"
+  console.log('noe>:', nome);
+
+  // const informationOfDoctor = await connection.execute("SELECT * FROM `Medico` WHERE `nome` LIKE ?", ['carlos']);
+  // const informationOfDoctor = await connection.execute("SELECT * FROM `Medico`");
+  const [doctor] = await connection.execute('SELECT * FROM Medico');
+
+  return doctor
+}
+
 const tudoAqui = async (id) =>{
   const ollHereComplete = await connection.execute('SELECT * FROM Consulta WHERE id=?',[id])
   console.log(ollHereComplete);
@@ -67,6 +78,7 @@ module.exports = {
   deleteConsult,
   informationClient,
   informationDoctor,
+  getInformationDoctorUsingName,
   tudoAqui
   // updateConsult
 };
